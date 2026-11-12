@@ -1,3 +1,11 @@
 .DS_Store
 node_modules/
 server/data/
+client/dist/
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/terraform.tfvars
+terraform/.terraform.lock.hcl

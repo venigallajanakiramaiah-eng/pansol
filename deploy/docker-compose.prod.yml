@@ -1,0 +1,21 @@
+# Production stack on EC2. deploy.sh sets ECR_URL, IMAGE_TAG, SESSION_SECRET,
+# AWS_REGION and LOG_GROUP. Container logs are shipped to CloudWatch.
+services:
+  app:
+    image: ${ECR_URL}:${IMAGE_TAG}
+    restart: unless-stopped
+    ports:
+      - "80:4000"
+    environment:
+      SESSION_SECRET: ${SESSION_SECRET}
+    volumes:
+      - pansol_data:/data
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ${AWS_REGION}
+        awslogs-group: ${LOG_GROUP}
+        awslogs-stream: app
+
+volumes:
+  pansol_data:

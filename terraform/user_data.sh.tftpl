@@ -1,0 +1,30 @@
+#!/bin/bash
+# Bootstraps the instance: Docker + Compose, the production compose file,
+# and the deploy script the CI/CD pipeline runs through SSM.
+set -euxo pipefail
+
+dnf install -y docker
+systemctl enable --now docker
+
+mkdir -p /usr/local/lib/docker/cli-plugins
+curl -fsSL "https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-linux-x86_64" \
+  -o /usr/local/lib/docker/cli-plugins/docker-compose
+chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+mkdir -p /opt/pansol
+
+cat > /opt/pansol/app.env <<'ENV'
+AWS_REGION=${aws_region}
+ECR_URL=${ecr_url}
+LOG_GROUP=${log_group}
+SESSION_PARAM=${session_param}
+ENV
+
+cat > /opt/pansol/docker-compose.yml <<'COMPOSE'
+${compose_file}
+COMPOSE
+
+cat > /opt/pansol/deploy.sh <<'DEPLOY'
+${deploy_script}
+DEPLOY
+chmod +x /opt/pansol/deploy.sh

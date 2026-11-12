@@ -1,0 +1,12 @@
+**/node_modules
+**/.DS_Store
+server/data
+server/test
+client/dist
+.git
+.github
+.claude
+terraform
+deploy
+scripts
+*.md
