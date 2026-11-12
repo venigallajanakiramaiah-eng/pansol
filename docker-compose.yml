@@ -1,0 +1,15 @@
+# Run the production image locally:  docker compose up --build
+# Then open http://localhost:8080
+services:
+  app:
+    build: .
+    ports:
+      - "8080:4000"
+    environment:
+      SESSION_SECRET: local-only-change-me
+    volumes:
+      - pansol_data:/data
+    restart: unless-stopped
+
+volumes:
+  pansol_data:

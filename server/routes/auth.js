@@ -50,7 +50,7 @@ router.post('/login', (req, res) => {
 
 router.post('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.clearCookie('connect.sid');
+    res.clearCookie('pansol.sid');
     res.json({ ok: true });
   });
 });

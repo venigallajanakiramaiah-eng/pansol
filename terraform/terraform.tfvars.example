@@ -1,0 +1,4 @@
+# Copy to terraform.tfvars and fill in.
+github_repo = "venigallajanakiramaiah-eng/pansol"
+aws_region  = "us-east-1"
+alert_email = "you@example.com"
